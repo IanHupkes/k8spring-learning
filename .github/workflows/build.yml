@@ -39,6 +39,6 @@ jobs:
       - name: Install + test
         working-directory: front/react
         run: |
-          npm ci
+          npm install
           npm test
 
