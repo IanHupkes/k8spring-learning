@@ -1,5 +1,5 @@
 
-name: Spring Boot CI
+name: k8spring ci
 
 on:
   pull_request:
