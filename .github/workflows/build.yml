@@ -27,20 +27,20 @@ jobs:
 
 
 
-#  frontend:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - uses: actions/checkout@v4
-#
-#      - name: Setup Node
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: '18'
-#
-#      - name: Install + test
-#        working-directory: front
-#        run: |
-#          npm install
-#          npm test
+  frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '25'
+
+      - name: Install + test
+        working-directory: front/react
+        run: |
+          npm install
+          npm test
 
