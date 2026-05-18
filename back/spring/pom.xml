@@ -8,7 +8,7 @@
 		<version>4.0.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.capgemini.education.k8spring</groupId>
+	<groupId>com.example</groupId>
 	<artifactId>k8spring-spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
@@ -58,6 +58,14 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+        </dependency>
+
+
+        <!-- H2 Database -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
