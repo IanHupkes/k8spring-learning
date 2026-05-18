@@ -9,7 +9,7 @@ class SpringApiApplicationTests {
 
 	@Test
 	void contextLoads() {
-        Assert.notNull(Object.class, "Not null!");
+        Assert.notNull(1, "Not null!");
 	}
 
 }
