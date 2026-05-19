@@ -23,8 +23,6 @@ jobs:
         run: mvn clean verify
         working-directory: back/spring
 
-
-
   react-tests:
     runs-on: ubuntu-latest
 
@@ -36,9 +34,15 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install + test
+      - name: Install dependencies
         working-directory: front/react
-        run: |
-          npm install
-          npm test
+        run: npm install
+
+      - name: Run lint
+        working-directory: front/react
+        run: npm run lint
+
+      - name: Run tests
+        working-directory: front/react
+        run: npm test
 
