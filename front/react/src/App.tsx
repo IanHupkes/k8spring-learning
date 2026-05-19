@@ -34,8 +34,13 @@ export default function UsersApp() {
     };
 
 
+
     useEffect(() => {
-        fetchUsers();
+        const loadUsers = async () => {
+            const users = await api.getUsers(); // example
+            setUsers(users); // ✅ now inside async flow
+        };
+        loadUsers();
     }, []);
 
     const addUser = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
@@ -89,7 +94,7 @@ export default function UsersApp() {
             onSubmit={addUser}
             className="space-y-3 p-4 border rounded-2xl shadow-sm"
         >
-            <h2 className="font-semibold">Add User</h2>
+            <h2 className="font-semibold">Add User </h2>
 
             <Input
             placeholder="Name"
