@@ -36,11 +36,12 @@ export default function UsersApp() {
 
 
     useEffect(() => {
-        const loadUsers = async () => {
-            const users = await api.getUsers(); // example
-            setUsers(users); // ✅ now inside async flow
-        };
-        loadUsers();
+        fetchUsers();
+//         const loadUsers = async () => {
+//             const users = await api.getUsers(); // example
+//             setUsers(users); // ✅ now inside async flow
+//         };
+//         loadUsers();
     }, []);
 
     const addUser = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
