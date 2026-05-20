@@ -1,10 +1,9 @@
-package com.capgemini.education.k8spring.spring_api.service;
+package com.example.k8spring.spring_api.service;
 
-import com.capgemini.education.k8spring.spring_api.model.User;
-import com.capgemini.education.k8spring.spring_api.repository.UserRepository;
-import org.springframework.stereotype.Service;
-
+import com.example.k8spring.spring_api.model.User;
+import com.example.k8spring.spring_api.repository.UserRepository;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {

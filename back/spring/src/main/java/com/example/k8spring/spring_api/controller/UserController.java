@@ -1,10 +1,9 @@
-package com.capgemini.education.k8spring.spring_api.controller;
+package com.example.k8spring.spring_api.controller;
 
-import com.capgemini.education.k8spring.spring_api.model.User;
-import com.capgemini.education.k8spring.spring_api.service.UserService;
-import org.springframework.web.bind.annotation.*;
-
+import com.example.k8spring.spring_api.model.User;
+import com.example.k8spring.spring_api.service.UserService;
 import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
