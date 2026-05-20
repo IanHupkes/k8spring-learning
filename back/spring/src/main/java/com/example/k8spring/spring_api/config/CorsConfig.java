@@ -1,4 +1,4 @@
-package com.capgemini.education.k8spring.spring_api.config;
+package com.example.k8spring.spring_api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +14,7 @@ public class CorsConfig {
 
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173")
-                        .allowedMethods("*")
+                registry.addMapping("/**").allowedOrigins("http://localhost:5173").allowedMethods("*")
                         .allowedHeaders("*");
             }
         };

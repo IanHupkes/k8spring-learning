@@ -1,4 +1,4 @@
-package com.capgemini.education.k8spring.spring_api;
+package com.example.k8spring.spring_api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,9 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SpringApiApplication {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
         SpringApplication.run(SpringApiApplication.class, args);
-	}
-
+    }
 }
