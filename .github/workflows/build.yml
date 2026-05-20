@@ -48,6 +48,7 @@ jobs:
         working-directory: front/react
         run: npm test
 
+
   # build
   build:
     runs-on: ubuntu-latest
@@ -81,10 +82,46 @@ jobs:
           npm run build
         working-directory: front/react
 
+  # security checks
+
+  # security checks (dependency scanning)
+  security-checks:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # node setup (voor npm audit)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # npm audit
+      - name: Run npm audit
+        working-directory: front/react
+        run: |
+          npm ci
+          npm audit --audit-level=high
+
+      # java setup
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      # OWASP dependency check
+      - name: Run OWASP dependency check
+        run: mvn org.owasp:dependency-check-maven:check
+        working-directory: back/spring
+
+
   # docker images build
   docker-build:
     runs-on: ubuntu-latest
-    needs: build
+    needs: security-checks
 
     steps:
       - uses: actions/checkout@v4
