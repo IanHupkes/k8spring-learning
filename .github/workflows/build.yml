@@ -6,8 +6,9 @@ on:
     branches: [ main ]
 
 jobs:
-  spring-tests:
 
+  # spring test
+  spring-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,6 +24,7 @@ jobs:
         run: mvn clean verify
         working-directory: back/spring
 
+  # react test
   react-tests:
     runs-on: ubuntu-latest
 
@@ -36,7 +38,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: front/react
-        run: npm install
+        run: npm ci
 
       - name: Run lint
         working-directory: front/react
@@ -45,4 +47,48 @@ jobs:
       - name: Run tests
         working-directory: front/react
         run: npm test
+
+  # build
+  build:
+    runs-on: ubuntu-latest
+    needs: [ spring-tests, react-tests ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # setup java version
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      # TEMP debug java version
+      - name: Verify Java
+        run: |
+          java -version
+          mvn -version
+
+      # spring build
+      - name: Build backend (Spring)
+        run: mvn clean package -DskipTests
+        working-directory: back/spring
+
+      # react build
+      - name: Build frontend (React)
+        run: |
+          npm ci
+          npm run build
+        working-directory: front/react
+
+#  # docker images build
+#  docker-build:
+#    runs-on: ubuntu-latest
+#    needs: build
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: Build Docker images
+#        run: docker compose build
 
