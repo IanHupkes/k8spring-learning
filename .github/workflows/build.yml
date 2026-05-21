@@ -117,11 +117,8 @@ jobs:
           key: owasp-db
 
       - name: Run OWASP dependency check
-        run: mvn org.owasp:dependency-check-maven:check \
-          -Ddependency-check.skipUpdate=true
+        run: mvn org.owasp:dependency-check-maven:check -Ddependency-check.skipUpdate=true
         working-directory: back/spring
-
-
 
 
   # docker images build
