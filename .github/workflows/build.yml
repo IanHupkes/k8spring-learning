@@ -179,19 +179,3 @@ jobs:
         run: docker compose push
 
 
-#      # ✅ trivy install
-#      - name: Install Trivy
-#        run: |
-#          sudo apt-get update
-#          sudo apt-get install -y wget
-#          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.50.2_Linux-64bit.deb
-#          sudo dpkg -i trivy_0.50.2_Linux-64bit.deb
-#
-#      # ✅ scan backend image
-#      - name: Scan backend image
-#        run: trivy image k8spring-learning-api
-#
-#      # ✅ scan frontend image
-#      - name: Scan frontend image
-#        run: trivy image k8spring-learning-web
-
