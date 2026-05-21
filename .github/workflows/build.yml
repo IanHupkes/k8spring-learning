@@ -7,12 +7,12 @@ on:
 
 jobs:
 
-#  # spring test
-#  spring-tests:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - uses: actions/checkout@v4
+  # spring test
+  spring-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
 #
 #      - name: Set up Java
 #        uses: actions/setup-java@v4
@@ -24,12 +24,12 @@ jobs:
 #        run: mvn clean verify
 #        working-directory: back/spring
 #
-#  # react test
-#  react-tests:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - uses: actions/checkout@v4
+  # react test
+  react-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
 #
 #      - name: Setup Node
 #        uses: actions/setup-node@v4
@@ -48,13 +48,13 @@ jobs:
 #        working-directory: front/react
 #        run: npm test
 #
-#  # build
-#  build:
-#    runs-on: ubuntu-latest
-#    needs: [ spring-tests, react-tests ]
-#
-#    steps:
-#      - uses: actions/checkout@v4
+  # build
+  build:
+    runs-on: ubuntu-latest
+    needs: [ spring-tests, react-tests ]
+
+    steps:
+      - uses: actions/checkout@v4
 #
 #      # setup java version
 #      - name: Set up Java
