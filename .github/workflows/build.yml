@@ -127,7 +127,7 @@ jobs:
           key: owasp-db
 
       - name: Run OWASP dependency check
-        run: mvn org.owasp:dependency-check-maven:check "-Ddependency-check.nvd.apiKey=${{ secrets.NVD_API_KEY }}"
+        run: mvn org.owasp:dependency-check-maven:check -Ddependency-check.nvd.apiKey=${{ secrets.NVD_API_KEY }}
         working-directory: back/spring
 
 
