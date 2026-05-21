@@ -81,14 +81,101 @@ jobs:
           npm run build
         working-directory: front/react
 
-  # docker images build
-  docker-build:
+  # security checks (dependency scanning)
+  security-checks:
     runs-on: ubuntu-latest
     needs: build
 
     steps:
       - uses: actions/checkout@v4
 
+      # node setup (voor npm audit)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # npm audit
+      - name: Run npm audit
+        working-directory: front/react
+        run: |
+          npm ci
+          npm audit --audit-level=high
+
+      # java setup
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+
+      # OWASP dependency check
+      - name: Debug API key presence
+        run: |
+          if [ -z "${{ secrets.NVD_API_KEY }}" ]; then
+            echo "KEY IS EMPTY"
+            exit 1
+          else
+            echo "KEY IS SET"
+          fi
+
+#      - name: Cache OWASP data
+#        uses: actions/cache@v4
+#        with:
+#          path: ~/.m2/repository/org/owasp/dependency-check-data
+#          key: owasp-db
+#
+#      - name: Run OWASP dependency check
+#        run: mvn org.owasp:dependency-check-maven:check "-Ddependency-check.nvd.apiKey=${{ secrets.NVD_API_KEY }}"
+#        working-directory: back/spring
+
+
+  # docker build
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: security-checks
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # build images
       - name: Build Docker images
         run: docker compose build
+        env:
+          POSTGRES_DB: test
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+
+      - name: Scan backend image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'ianhupkes09987/k8spring-learning-api'
+          format: table
+          exit-code: 1
+          ignore-unfixed: true
+          severity: HIGH,CRITICAL
+
+
+      - name: Scan frontend image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'ianhupkes09987/k8spring-learning-web'
+          format: table
+          exit-code: 1
+          ignore-unfixed: true
+          severity: HIGH,CRITICAL
+
+
+      # 🔐 login
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # 📤 push
+      - name: Push Docker images
+        run: docker compose push
+
 
