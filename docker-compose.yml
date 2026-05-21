@@ -1,6 +1,8 @@
 
 name: k8spring-learning
+
 services:
+
   db:
     image: postgres:16
     environment:
@@ -15,19 +17,20 @@ services:
   api:
     build: 
       context: ./back/spring
+    image: ianhupkes09987/k8spring-learning-api
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "8080:8080"
- 
 
   web:
     build: 
       context: ./front/react
       args:
         VITE_API_URL: /api
+    image: ianhupkes09987/k8spring-learning-web
     ports:
       - "5173:80"
     depends_on:
