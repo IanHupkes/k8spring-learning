@@ -13,41 +13,41 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-#
-#      - name: Set up Java
-#        uses: actions/setup-java@v4
-#        with:
-#          distribution: 'temurin'
-#          java-version: '21'
-#
-#      - name: Run Spring tests
-#        run: mvn clean verify
-#        working-directory: back/spring
-#
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Run Spring tests
+        run: mvn clean verify
+        working-directory: back/spring
+
   # react test
   react-tests:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-#
-#      - name: Setup Node
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: '20'
-#
-#      - name: Install dependencies
-#        working-directory: front/react
-#        run: npm ci
-#
-#      - name: Run lint
-#        working-directory: front/react
-#        run: npm run lint
-#
-#      - name: Run tests
-#        working-directory: front/react
-#        run: npm test
-#
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: front/react
+        run: npm ci
+
+      - name: Run lint
+        working-directory: front/react
+        run: npm run lint
+
+      - name: Run tests
+        working-directory: front/react
+        run: npm test
+
   # build
   build:
     runs-on: ubuntu-latest
@@ -55,31 +55,25 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-#
-#      # setup java version
-#      - name: Set up Java
-#        uses: actions/setup-java@v4
-#        with:
-#          distribution: temurin
-#          java-version: '21'
-#
-#      # TEMP debug java version
-#      - name: Verify Java
-#        run: |
-#          java -version
-#          mvn -version
-#
-#      # spring build
-#      - name: Build backend (Spring)
-#        run: mvn clean package -DskipTests
-#        working-directory: back/spring
-#
-#      # react build
-#      - name: Build frontend (React)
-#        run: |
-#          npm ci
-#          npm run build
-#        working-directory: front/react
+
+      # setup java version
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      # spring build
+      - name: Build backend (Spring)
+        run: mvn clean package -DskipTests
+        working-directory: back/spring
+
+      # react build
+      - name: Build frontend (React)
+        run: |
+          npm ci
+          npm run build
+        working-directory: front/react
 
   # security checks (dependency scanning)
   security-checks:
@@ -89,63 +83,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-#      # node setup (voor npm audit)
-#      - name: Setup Node
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: '20'
-#
-#      # npm audit
-#      - name: Run npm audit
-#        working-directory: front/react
-#        run: |
-#          npm ci
-#          npm audit --audit-level=high
-
-      # java setup
-      - name: Set up Java
-        uses: actions/setup-java@v4
+      # node setup (voor npm audit)
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          distribution: temurin
-          java-version: '21'
+          node-version: '20'
 
-
-      # OWASP dependency check
-      - name: Debug API key presence
+      # npm audit
+      - name: Run npm audit
+        working-directory: front/react
         run: |
-          if [ -z "${{ secrets.NVD_API_KEY }}" ]; then
-            echo "KEY IS EMPTY"
-            exit 1
-          else
-            echo "KEY IS SET"
-          fi
+          npm ci
+          npm audit --audit-level=high
 
-      - name: Cache OWASP data
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2/repository/org/owasp/dependency-check-data
-          key: owasp-db
-
-      - name: Debug API key presence
-        run: |
-          if [ -z "${{ env.NVD_API_KEY }}" ]; then
-            echo "KEY IS EMPTY"
-            echo "Key length: ${#NVD_API_KEY}" 
-            exit 1
-          else
-            echo "KEY IS SET"
-            echo "Key length: ${#NVD_API_KEY}" 
-          fi
-        env:
-          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
-
-#      - name: Run OWASP dependency check
-#        run: mvn org.owasp:dependency-check-maven:check
-#        working-directory: back/spring
-#        env:
-#          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
-
-
+    # skip OWASP
 
   # docker build
   docker-build:
