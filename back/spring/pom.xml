@@ -42,7 +42,6 @@
 			<scope>test</scope>
 		</dependency>
 
-
         <!-- Web (controllers, REST) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -62,7 +61,6 @@
 			<version>42.7.11</version>
         </dependency>
 
-
         <!-- H2 Database -->
         <dependency>
             <groupId>com.h2database</groupId>
@@ -77,12 +75,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.owasp</groupId>
-				<artifactId>dependency-check-maven</artifactId>
-				<version>9.0.9</version>
 			</plugin>
 
 			<plugin>
@@ -106,7 +98,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
 	</build>
 
