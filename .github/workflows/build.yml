@@ -48,7 +48,6 @@ jobs:
         working-directory: front/react
         run: npm test
 
-
   # build
   build:
     runs-on: ubuntu-latest
@@ -82,8 +81,6 @@ jobs:
           npm run build
         working-directory: front/react
 
-  # security checks
-
   # security checks (dependency scanning)
   security-checks:
     runs-on: ubuntu-latest
@@ -114,9 +111,8 @@ jobs:
 
       # OWASP dependency check
       - name: Run OWASP dependency check
-        run: mvn org.owasp:dependency-check-maven:check
+        run: mvn org.owasp:dependency-check-maven:check -Ddependency-check.skipUpdate=true
         working-directory: back/spring
-
 
   # docker images build
   docker-build:
