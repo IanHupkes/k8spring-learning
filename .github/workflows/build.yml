@@ -130,6 +130,7 @@ jobs:
         run: |
           if [ -z "${{ env.NVD_API_KEY }}" ]; then
             echo "KEY IS EMPTY"
+            echo "Key length: ${#NVD_API_KEY}"
             exit 1
           else
             echo "KEY IS SET"
