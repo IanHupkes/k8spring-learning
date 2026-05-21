@@ -147,19 +147,39 @@ jobs:
           POSTGRES_USER: testuser
           POSTGRES_PASSWORD: testpass
 
-      # ✅ trivy install
-      - name: Install Trivy
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget
-          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.50.2_Linux-64bit.deb
-          sudo dpkg -i trivy_0.50.2_Linux-64bit.deb
 
-      # ✅ scan backend image
       - name: Scan backend image
-        run: trivy image k8spring-learning-api
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          image-ref: 'k8spring-learning-api'
+          format: table
+          exit-code: 1
+          ignore-unfixed: true
+          severity: HIGH,CRITICAL
 
-      # ✅ scan frontend image
+
       - name: Scan frontend image
-        run: trivy image k8spring-learning-web
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          image-ref: 'k8spring-learning-web'
+          format: table
+          exit-code: 1
+          ignore-unfixed: true
+          severity: HIGH,CRITICAL
+
+#      # ✅ trivy install
+#      - name: Install Trivy
+#        run: |
+#          sudo apt-get update
+#          sudo apt-get install -y wget
+#          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.50.2_Linux-64bit.deb
+#          sudo dpkg -i trivy_0.50.2_Linux-64bit.deb
+#
+#      # ✅ scan backend image
+#      - name: Scan backend image
+#        run: trivy image k8spring-learning-api
+#
+#      # ✅ scan frontend image
+#      - name: Scan frontend image
+#        run: trivy image k8spring-learning-web
 
