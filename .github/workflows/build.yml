@@ -110,9 +110,19 @@ jobs:
           java-version: '21'
 
       # OWASP dependency check
+      - name: Cache OWASP data
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository/org/owasp/dependency-check-data
+          key: owasp-db
+
       - name: Run OWASP dependency check
-        run: mvn org.owasp:dependency-check-maven:check -Ddependency-check.skipUpdate=true
+        run: mvn org.owasp:dependency-check-maven:check \
+          -Ddependency-check.skipUpdate=true
         working-directory: back/spring
+
+
+
 
   # docker images build
   docker-build:
