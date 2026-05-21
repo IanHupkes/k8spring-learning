@@ -126,11 +126,22 @@ jobs:
           path: ~/.m2/repository/org/owasp/dependency-check-data
           key: owasp-db
 
-      - name: Run OWASP dependency check
-        run: mvn org.owasp:dependency-check-maven:check
-        working-directory: back/spring
+      - name: Debug API key presence
+        run: |
+          if [ -z "${{ env.NVD_API_KEY }}" ]; then
+            echo "KEY IS EMPTY"
+            exit 1
+          else
+            echo "KEY IS SET"
+          fi
         env:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+
+#      - name: Run OWASP dependency check
+#        run: mvn org.owasp:dependency-check-maven:check
+#        working-directory: back/spring
+#        env:
+#          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
 
 
 
