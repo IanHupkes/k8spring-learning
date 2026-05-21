@@ -143,10 +143,9 @@ jobs:
       - name: Build Docker images
         run: docker compose build
         env:
-          POSTGRES_DB: testdb
-          POSTGRES_USER: testuser
-          POSTGRES_PASSWORD: testpass
-
+          POSTGRES_DB: test
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
 
       - name: Scan backend image
         uses: aquasecurity/trivy-action@0.20.0
